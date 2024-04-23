@@ -1,0 +1,10 @@
+To Run this Project You can configure DB_DATABASE in env and Run " php artisan migrate "
+Do not forget To Run " php artisan db:seed --class=UsersTableSeeder "
+
+Or
+
+You can Import database file then run this project
+
+default admin credntials :
+email : admin@gmail.com
+password : 12345678
