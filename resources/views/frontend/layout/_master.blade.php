@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,16 +24,16 @@
 
 <body>
     <div class="page-wrapper">
-    <!-- Start Layout -->
+        <!-- Start Layout -->
 
-    @include('frontend.layout._header')
-    
-    @yield('body')
+        @include('frontend.layout._header')
 
-    @include('frontend.layout._footer')
+        @yield('body')
+
+        @include('frontend.layout._footer')
 
 
-    <!-- End Layout -->
+        <!-- End Layout -->
     </div><!-- End .page-wrapper -->
     <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
 
@@ -68,9 +69,8 @@
                                         <div class="form-group">
                                             <label for="singin-password">Password *</label>
                                             <input type="password" class="form-control" id="singin-password" name="password" required>
-                                        </div><
-
-                                        <div class="form-footer">
+                                        </div>
+                                        < <div class="form-footer">
                                             <button type="submit" class="btn btn-outline-primary-2">
                                                 <span>LOG IN</span>
                                                 <i class="icon-long-arrow-right"></i>
@@ -82,85 +82,85 @@
                                             </div><!-- End .custom-checkbox -->
 
                                             <a href="#" class="forgot-link">Forgot Your Password?</a>
-                                        </div><!-- End .form-footer -->
-                                    </form>
-                                    <div class="form-choice">
-                                        <p class="text-center">or sign in with</p>
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <a href="#" class="btn btn-login btn-g">
-                                                    <i class="icon-google"></i>
-                                                    Login With Google
-                                                </a>
-                                            </div><!-- End .col-6 -->
-                                            <div class="col-sm-6">
-                                                <a href="#" class="btn btn-login btn-f">
-                                                    <i class="icon-facebook-f"></i>
-                                                    Login With Facebook
-                                                </a>
-                                            </div><!-- End .col-6 -->
-                                        </div><!-- End .row -->
-                                    </div><!-- End .form-choice -->
-                                </div><!-- .End .tab-pane -->
-                                <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
-                                    <form action="#" id="register_user">
-                                        @csrf
-                                        <div class="form-group">
-                                            <label for="name">Your name *</label>
-                                            <input type="text" class="form-control" id="name" name="name" required>
-                                        </div>
+                                </div><!-- End .form-footer -->
+                                </form>
+                                <div class="form-choice">
+                                    <p class="text-center">or sign in with</p>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <a href="#" class="btn btn-login btn-g">
+                                                <i class="icon-google"></i>
+                                                Login With Google
+                                            </a>
+                                        </div><!-- End .col-6 -->
+                                        <div class="col-sm-6">
+                                            <a href="#" class="btn btn-login btn-f">
+                                                <i class="icon-facebook-f"></i>
+                                                Login With Facebook
+                                            </a>
+                                        </div><!-- End .col-6 -->
+                                    </div><!-- End .row -->
+                                </div><!-- End .form-choice -->
+                            </div><!-- .End .tab-pane -->
+                            <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
+                                <form action="#" id="register_user">
+                                    @csrf
+                                    <div class="form-group">
+                                        <label for="name">Your name *</label>
+                                        <input type="text" class="form-control" id="name" name="name" required>
+                                    </div>
 
-                                        <div class="form-group">
-                                            <label for="email">Your email address *</label>
-                                            <input type="email" class="form-control" id="email" name="email" required>
-                                        </div>
+                                    <div class="form-group">
+                                        <label for="email">Your email address *</label>
+                                        <input type="email" class="form-control" id="email" name="email" required>
+                                    </div>
 
-                                        <div class="form-group">
-                                            <label for="password">Password *</label>
-                                            <input type="password" class="form-control" id="password" name="password" required>
-                                        </div>
+                                    <div class="form-group">
+                                        <label for="password">Password *</label>
+                                        <input type="password" class="form-control" id="password" name="password" required>
+                                    </div>
 
-                                        <div class="form-group">
-                                            <label for="password_confirmation">Confirm Password *</label>
-                                            <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required>
-                                        </div>
+                                    <div class="form-group">
+                                        <label for="password_confirmation">Confirm Password *</label>
+                                        <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required>
+                                    </div>
 
-                                        <div class="form-footer">
-                                            <button type="submit" class="btn btn-outline-primary-2">
-                                                <span>SIGN UP</span>
-                                                <i class="icon-long-arrow-right"></i>
-                                            </button>
+                                    <div class="form-footer">
+                                        <button type="submit" class="btn btn-outline-primary-2">
+                                            <span>SIGN UP</span>
+                                            <i class="icon-long-arrow-right"></i>
+                                        </button>
 
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="register-policy" required>
-                                                <label class="custom-control-label" for="register-policy">I agree to the <a href="#">privacy policy</a> *</label>
-                                            </div><!-- End .custom-checkbox -->
-                                        </div><!-- End .form-footer -->
-                                    </form>
-                                    <div class="form-choice">
-                                        <p class="text-center">or sign in with</p>
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <a href="#" class="btn btn-login btn-g">
-                                                    <i class="icon-google"></i>
-                                                    Login With Google
-                                                </a>
-                                            </div><!-- End .col-6 -->
-                                            <div class="col-sm-6">
-                                                <a href="#" class="btn btn-login  btn-f">
-                                                    <i class="icon-facebook-f"></i>
-                                                    Login With Facebook
-                                                </a>
-                                            </div><!-- End .col-6 -->
-                                        </div><!-- End .row -->
-                                    </div><!-- End .form-choice -->
-                                </div><!-- .End .tab-pane -->
-                            </div><!-- End .tab-content -->
-                        </div><!-- End .form-tab -->
-                    </div><!-- End .form-box -->
-                </div><!-- End .modal-body -->
-            </div><!-- End .modal-content -->
-        </div><!-- End .modal-dialog -->
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="register-policy" required>
+                                            <label class="custom-control-label" for="register-policy">I agree to the <a href="#">privacy policy</a> *</label>
+                                        </div><!-- End .custom-checkbox -->
+                                    </div><!-- End .form-footer -->
+                                </form>
+                                <div class="form-choice">
+                                    <p class="text-center">or sign in with</p>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <a href="#" class="btn btn-login btn-g">
+                                                <i class="icon-google"></i>
+                                                Login With Google
+                                            </a>
+                                        </div><!-- End .col-6 -->
+                                        <div class="col-sm-6">
+                                            <a href="#" class="btn btn-login  btn-f">
+                                                <i class="icon-facebook-f"></i>
+                                                Login With Facebook
+                                            </a>
+                                        </div><!-- End .col-6 -->
+                                    </div><!-- End .row -->
+                                </div><!-- End .form-choice -->
+                            </div><!-- .End .tab-pane -->
+                        </div><!-- End .tab-content -->
+                    </div><!-- End .form-tab -->
+                </div><!-- End .form-box -->
+            </div><!-- End .modal-body -->
+        </div><!-- End .modal-content -->
+    </div><!-- End .modal-dialog -->
     </div><!-- End .modal -->
 
     <!-- <div class="container newsletter-popup-container mfp-hide" id="newsletter-popup-form">
@@ -201,71 +201,139 @@
     <script src="{{ asset('frontend') }}/assets/js/superfish.min.js"></script>
     <script src="{{ asset('frontend') }}/assets/js/owl.carousel.min.js"></script>
     <script src="{{ asset('frontend') }}/assets/js/jquery.magnific-popup.min.js"></script>
+
     <!-- Toastr -->
     <script src="{{ asset('assets') }}/plugins/toastr/toastr.min.js"></script>
     <!-- Main JS File -->
     @yield('script')
     <script src="{{ asset('frontend') }}/assets/js/main.js"></script>
 
-<script>
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#q').on('input', function() {
+                var searchXHR;
+                var query = $(this).val().toLowerCase().trim();
+                if (searchXHR && searchXHR.readyState !== 4) {
+                    searchXHR.abort();
+                }
+
+                if (query.length >= 2) {
+                    searchXHR = $.ajax({
+                        url: '/product_search',
+                        method: 'GET',
+                        data: {
+                            query: query
+                        },
+                        success: function(response) {
+                            filterProducts(response, query);
+                        }
+                    });
+                } else if (query.length < 2) {
+                    $('.header-search').on('click', function(event) {
+                        event.stopPropagation();
+                        $('.ProductDropdown').removeClass('d-block').addClass('d-none');
+                    });
+                    $('.ProductDropdown').empty().removeClass('d-block').addClass('d-none');
+                }
+            });
+
+            $(window).on('click', function() {
+                $('.ProductDropdown').removeClass('d-block').addClass('d-none');
+            });
+        });
+
+        function filterProducts(response, query) {
+            console.log(response)
+          
+            $('.ProductDropdown').empty().removeClass('d-none').addClass('d-block');
+            if (response.length === 0) {
+               
+                $('.ProductDropdown').html('<div class="search_item"><p>No products found<p></div>');
+            } else {
+               
+                response.forEach(function(product) {
+                    var productName = product.title.toLowerCase();
+                    if (productName.includes(query)) {
+                        var image = product.image; 
+                        var old_price = parseFloat(product.old_price);
+                        var current_price = parseFloat(product.price);
+                        if (old_price > current_price) {
+                            var old_price_html = '<p class="old-price"><del>' + product.old_price + '৳</del></p>';
+                        }
+
+                      
+                        if (image && image.trim() !== '') {
+                        
+                            $('.ProductDropdown').append('<a href="'+ product.slug +'" class="search_item">' +
+                                '<img src="' + image + '" alt="' + product.title + '">' +
+                                '<div><p class="price">' + product.title + '</p><div class="d-flex"><p>' + product.price + '৳</p>' + old_price_html + '</div></div>' +
+                                '</a>');
+                        } else {
+                          
+                            var defaultImage = '{{ asset("frontend/image/no_image.jpg") }}';
+                            $('.ProductDropdown').append('<a href="'+ product.slug +'" class="search_item">' +
+                                '<img src="' + defaultImage + '" alt="' + product.title + '">' +
+                                '<div><p class="price">' + product.title + '</p><div class="d-flex"><p>' + product.price + '৳</p>' + old_price_html + '</div></div>' +
+                                '</a>');
+                        }
+                    }
+                });
+            }
         }
-    });
-</script>
+    </script>
 
-<script>
-    $('body').delegate('#register_user','submit',function(e){
-        e.preventDefault();
-        $.ajax({
-            type : 'POST',
-            url : '{{ url("auth_register") }}',
-            data : $(this).serialize(),
-            dataType : 'json',
-            success : function(response)
-            {
-                
-                if(response.status == true)
-                {
-                    toastr.success(response.message)
-                    location.reload()
+    <script>
+        $('body').delegate('#register_user', 'submit', function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '{{ url("auth_register") }}',
+                data: $(this).serialize(),
+                dataType: 'json',
+                success: function(response) {
+
+                    if (response.status == true) {
+                        toastr.success(response.message)
+                        location.reload()
+                    } else {
+                        toastr.error(response.message)
+                    }
                 }
-                else
-                {
-                    toastr.error(response.message)
-                }
-            }
+            })
         })
-    })
 
-    $('body').delegate('#login_user','submit',function(e){
-        e.preventDefault();
-        $.ajax({
-            type : 'POST',
-            url : '{{ url("auth_login") }}',
-            data : $(this).serialize(),
-            dataType : 'json',
-            success : function(response)
-            {
-                
-                if(response.status == true)
-                {
-                    toastr.success(response.message)
-                    location.reload()
+        $('body').delegate('#login_user', 'submit', function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '{{ url("auth_login") }}',
+                data: $(this).serialize(),
+                dataType: 'json',
+                success: function(response) {
+
+                    if (response.status == true) {
+                        toastr.success(response.message)
+                        location.reload()
+                    } else {
+                        toastr.error(response.message)
+                    }
                 }
-                else
-                {
-                    toastr.error(response.message)
-                }
-            }
+            })
         })
-    })
-</script>
+    </script>
 
-{!! Toastr::message() !!}
+    {!! Toastr::message() !!}
 </body>
 
 
 <!-- molla/index-2.html  22 Nov 2019 09:55:42 GMT -->
+
 </html>

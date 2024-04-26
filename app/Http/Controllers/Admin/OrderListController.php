@@ -61,13 +61,33 @@ class OrderListController extends Controller
                         }
                     })
                     ->addColumn('status',function($v){
-                        if($v->status == 1)
+                        if($v->status == 0)
                         {
-                            return 'Active';
+                            return '<span class="badge badge-danger">Incomplete</span>';
+                        }
+                        else if($v->status == 1)
+                        {
+                            return '<span class="badge badge-warning">Pending</span>';
+                        }
+                        else if($v->status == 2)
+                        {
+                            return '<span class="badge badge-primary">Processing</span>';
+                        }
+                        else if($v->status == 3)
+                        {
+                            return '<span class="badge badge-info">In Delivery</span>';
+                        }
+                        else if($v->status == 4)
+                        {
+                            return '<span class="badge badge-success">Completed</span>';
+                        }
+                        else if($v->status == 5)
+                        {
+                            return '<span class="badge badge-danger">Canceled</span>';
                         }
                         else
                         {
-                            return 'Inactive';
+                            return $v->status;
                         }
                     })
                     ->addColumn('action', function($v){
@@ -77,8 +97,8 @@ class OrderListController extends Controller
                     ->rawColumns(['sl','order_date','first_name','address','city','state','phone','email','total_amount','payment_method','is_payment','status','action'])
                     ->make(true);
         }
-        
-        return view('admin.order_list.index',compact('header_title'));
+        $order = Order::get();
+        return view('admin.order_list.index',compact('header_title','order'));
     }
 
     public function OrderDetails($order_id)
@@ -89,6 +109,28 @@ class OrderListController extends Controller
         if(!empty($order))
         {
             return view('admin.order_list.order_details',compact('order','header_title'));
+        }
+    }
+
+    public function UpdateStatus(Request $request)
+    {
+        $order = Order::find($request->order_id);
+        if(!empty($order))
+        {
+            $order->status = $request->status;
+            $order->save();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Order Status Update Successful'
+            ]);
+        }
+        else
+        {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Order Status Update Failed'
+            ]);
         }
     }
 }

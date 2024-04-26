@@ -169,7 +169,7 @@
                                                                 <td colspan="3"></td>
                                                                 <th>Paid Amount</th>
                                                                 @if($order->is_payment == 1)
-                                                                <th>{{ $v->total_amount }}৳</th>
+                                                                <th>{{ $order->total_amount }}৳</th>
                                                                 @else
                                                                 <th>0৳</th>
                                                                 @endif
@@ -254,15 +254,17 @@
                                                 </thead>
                                             </table>
 
-                                            <form action="http://127.0.0.1:8000/admin/order/order-update/14" method="post" style="padding: 0">
-                                                <input type="hidden" name="_token" value="lRgD4LIWhmENsUCwUUsOeXEpIODkGYdmIHdI7AsM"> <input type="hidden" name="_method" value="PATCH"> <select name="status" id="status" class="select2 mb-1">
+                                            <form id="status_form" method="post" style="padding: 0">
+                                            <input type="hidden" name="order_id" value="{{ $order->id }}">
+                                                <select name="status" id="status" class="select2 mb-1">
                                                     <option value="">Select Order Status</option>
-                                                    <option value="Pending" selected>Pending</option>
-                                                    <option value="Processing">Processing</option>
-                                                    <option value="Completed">Completed</option>
-                                                    <option value="Canceled">Canceled</option>
+                                                    <option value="1" @if($order->status == 1) selected @endif>Pending</option>
+                                                    <option value="2" @if($order->status == 2) selected @endif>Processing</option>
+                                                    <option value="3" @if($order->status == 3) selected @endif>In Delivery</option>
+                                                    <option value="4" @if($order->status == 4) selected @endif>Completed</option>
+                                                    <option value="5" @if($order->status == 5) selected @endif>Canceled</option>
                                                 </select>
-                                                <input type="submit" name="submit" value="Change Status">
+                                                <input type="submit" name="status_btn" id="status_btn" value="Change Status">
                                             </form>
                                         </div>
                                     </div>
@@ -282,6 +284,25 @@
 <!-- /.content -->
 
 <script type="text/javascript">
+    $(document).on('submit','#status_form',function(e){
+        e.preventDefault();
+        $.ajax({
+            type : 'POST',
+            url : '{{ url("admin/order_list/update_status") }}',
+            data : $(this).serialize(),
+            success : function(response)
+            {
+                if(response.status == 'success')
+                {
+                    toastr.success(response.message)
+                }
+                else
+                {
+                    toastr.error(response.message)
+                }
+            }
+        })
+    })
 </script>
 
 @endsection

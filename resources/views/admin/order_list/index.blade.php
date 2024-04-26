@@ -40,6 +40,12 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body table-responsive">
+                            <div class="row">
+                                <h4 class="col-md-6">Pending : {{ $order->where('status', 1)->count() }}</h4>
+                                <h4 class="col-md-6">Processing : {{ $order->where('status', 2)->count() }}</h4>
+                                <h4 class="col-md-6">In Delivery : {{ $order->where('status', 3)->count() }}</h4>
+                                <h4 class="col-md-6">Completed : {{ $order->where('status', 4)->count() }}</h4>
+                            </div>
                             <table id="example1" class="table data-table table-bordered table-striped">
                                 <thead class="p-0">
                                     <tr>

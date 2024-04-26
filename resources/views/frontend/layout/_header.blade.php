@@ -1,3 +1,75 @@
+<style>
+     .ProductDropdown{
+        max-height : 350px;
+        padding : 10px;
+        overflow: auto;
+    }
+
+    /* Custom scrollbar track */
+    .ProductDropdown::-webkit-scrollbar-track {
+        background-color: #f1f1f1; /* Color of the scrollbar track */
+    }
+
+    /* Custom scrollbar thumb */
+    .ProductDropdown::-webkit-scrollbar-thumb {
+        background-color: #888; /* Color of the scrollbar thumb */
+        border-radius: 5px; /* Rounded corners */
+    }
+
+    /* Optional: Slimmer scrollbar */
+    .ProductDropdown::-webkit-scrollbar {
+        width: 4px; /* Width of the scrollbar */
+    }
+
+    /* Optional: Show scrollbar only on hover */
+    .ProductDropdown:hover::-webkit-scrollbar-thumb {
+        background-color: #555; /* Change thumb color on hover */
+    }
+    .search_item{
+        height: 50px;
+        display :flex;
+        align-items :center;
+        border-radius: 2px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        position: relative;
+    }
+    .search_item img{
+        border-radius: 2px;
+        width: 40px;
+        height: 50px;
+    }
+
+    .search_item p{
+        font-weight: 500;
+        padding-left: 15px;
+    }
+    .search_item:hover{
+        background-color: #e8e8e8;
+    }
+
+    .search_item::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%; 
+        height: .5px; 
+        background-color: #ccc; 
+    }
+    .search_item .old-price
+    {
+        color: red;
+        padding-left: 6px;
+    }
+    .search_item .price
+    {
+        color: #000000;
+    }
+
+   
+</style>
+
 <header class="header">
             <div class="header-top">
                 <div class="container">
@@ -50,8 +122,8 @@
                             <i class="icon-bars"></i>
                         </button>
 
-                        <a href="index.html" class="logo">
-                            <img src="{{ asset('frontend') }}/assets/images/logo.png" alt="Molla Logo" width="105" height="25">
+                        <a href="{{ url('/') }}" class="logo">
+                            <img src="{{ asset('frontend') }}/image/eazybuy_logo.jpg" style="height: 45px;" alt="Easy Buy Logo" width="105">
                         </a>
 
                         <nav class="main-nav">
@@ -82,7 +154,6 @@
 
                                                         <!-- <li><a href="category-market.html"><span>Shop Market<span class="tip tip-new">New</span></span></a></li> -->
 
-
                                                     </div>
                                                 </div>
                                             </div>
@@ -95,14 +166,18 @@
                     </div>
 
                     <div class="header-right">
-                        <div class="header-search">
-                            <a href="{{ url('search') }}" class="search-toggle" role="button" title="Search"><i class="icon-search"></i></a>
-                            <form action="#" method="get">
-                                <div class="header-search-wrapper">
+                        <div class="header-search" >
+                            <a href="#" class="search-toggle" role="button" title="Search"><i class="icon-search"></i></a>
+                            <form action="{{ url('search') }}" method="get">
+                                <div class="header-search-wrapper" style="min-width: 600px;display:block;">
                                     <label for="q" class="sr-only">Search</label>
-                                    <input type="search" class="form-control" name="q" id="q" placeholder="Search in..." required>
+                                    <input type="search" class="form-control typeahead" name="q" id="q" placeholder="Search in..." autocomplete="off" required>
+                                    <div class="ProductDropdown d-none" for="q">
+                                       
+                                    </div>
                                 </div>
                             </form>
+                            
                         </div>
 
                         <div class="dropdown cart-dropdown" id="load-cart">

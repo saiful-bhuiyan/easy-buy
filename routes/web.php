@@ -60,6 +60,7 @@ Route::group(['middleware' => 'admin'], function () {
 
     Route::get('admin/order_list',[OrderListController::class,'index']);
     Route::get('admin/order_list/details/{order_id}',[OrderListController::class,'OrderDetails']);
+    Route::post('admin/order_list/update_status',[OrderListController::class,'UpdateStatus']);
 
 
     // product route
@@ -80,6 +81,8 @@ Route::post('auth_register',[AuthController::class,'auth_register']);
 Route::get('verify_user/{id}',[AuthController::class,'verify_user']);
 Route::post('auth_login',[AuthController::class,'auth_login']);
 Route::get('auth_logout',[AuthController::class,'auth_logout']);
+
+Route::get('/product_search', [FrontendController::class,'get_search_product']);
 
 Route::get('show-cart',[PaymentController::class,'show_cart']);
 Route::get('cart',[PaymentController::class,'shopping_cart']);

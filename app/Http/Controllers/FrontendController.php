@@ -101,9 +101,39 @@ class FrontendController extends Controller
         
     }
 
-    public function get_search_product($search)
+    // public function get_search_product(Request $request)
+    // {
+    //     $query = $request->input('query');
+
+    //     $products = Product::where('title', 'like', '%'.$query.'%')->where('status',1)->get();
+    
+    //     return response()->json($products);
+    // }
+
+    public function get_search_product(Request $request)
     {
+        $query = $request->input('query'); 
+
+    
+        $products = Product::where('title', 'LIKE', "%{$query}%")->get();
+
+        $suggestions = collect([]);
+
+            $suggestions = $products->map(function ($product) {
+                $defaultImage = asset('frontend/image/no_image.jpg'); 
+                $image = $product->ProductImage->sortBy('order_by')->first();
         
+                return [
+                    'slug' => $product->slug,
+                    'title' => $product->title,
+                    'price' => $product->price,
+                    'old_price' => $product->old_price,
+                    'image' => $image ? asset('upload/products/'.$image->image_name) : $defaultImage,
+                ];
+            });
+
+
+        return response()->json($suggestions);
     }
 
 }
