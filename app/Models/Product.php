@@ -102,7 +102,7 @@ class Product extends Model
             $query->whereBetween('price', [$price_start, $price_end]);
         }
 
-        $getProduct = $query->paginate(2);
+        $getProduct = $query->paginate(10);
 
         return $getProduct;
     }

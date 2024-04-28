@@ -169,6 +169,7 @@
                         <div class="header-search" >
                             <a href="#" class="search-toggle" role="button" title="Search"><i class="icon-search"></i></a>
                             <form action="{{ url('search') }}" method="get">
+                                @csrf
                                 <div class="header-search-wrapper" style="min-width: 600px;display:block;">
                                     <label for="q" class="sr-only">Search</label>
                                     <input type="search" class="form-control typeahead" name="q" id="q" placeholder="Search in..." autocomplete="off" required>

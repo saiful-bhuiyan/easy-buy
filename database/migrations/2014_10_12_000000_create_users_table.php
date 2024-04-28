@@ -21,6 +21,9 @@ return new class extends Migration
             $table->tinyInteger('is_admin')->comment('0 = customer & 1 = admin');
             $table->tinyInteger('status')->comment('0 = Inactive & 1 = Active');
             $table->date('deleted_at')->nullable();
+            $table->string('otp')->nullable();
+            $table->timestamp('otp_expire_at')->nullable();
+            $table->integer('otp_attempt')->nullable();
             $table->timestamps();
         });
     }

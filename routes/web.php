@@ -80,8 +80,20 @@ Route::get('/',[HomeController::class,'home']);
 Route::post('auth_register',[AuthController::class,'auth_register']);
 Route::get('verify_user/{id}',[AuthController::class,'verify_user']);
 Route::post('auth_login',[AuthController::class,'auth_login']);
+
+Route::get('forgot-password', [AuthController::class, 'forgot_password_form'])->name('forgot.password');
+
+// Route for handling forgot password form submission and displaying reset password form
+Route::post('forgot-password', [AuthController::class, 'forgot_password'])->name('reset.email');
+
+Route::post('user-otp', [AuthController::class, 'submit_otp'])->name('reset.otp');
+
+// Route for handling reset password form submission
+Route::post('reset-password', [AuthController::class, 'reset_password'])->name('update.password');
+
 Route::get('auth_logout',[AuthController::class,'auth_logout']);
 
+Route::get('/search', [FrontendController::class,'search']);
 Route::get('/product_search', [FrontendController::class,'get_search_product']);
 
 Route::get('show-cart',[PaymentController::class,'show_cart']);

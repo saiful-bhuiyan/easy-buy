@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Brian2694\Toastr\Toastr;
 use App\Mail\RegisterMail;
+use App\Mail\ResetPasswordMail;
 use Mail;
 
 class AuthController extends Controller
@@ -95,7 +97,7 @@ class AuthController extends Controller
     public function verify_user($id)
     {
         $id = base64_decode($id);
-        $user = User::where('status',1)->find($id);
+        $user = User::where('status', 1)->find($id);
         $user->email_verified_at = now();
         $user->save();
 
@@ -105,18 +107,120 @@ class AuthController extends Controller
     public function auth_login(Request $request)
     {
         $remember = !empty($request->remember) ? true : false;
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'status' => 1], $remember))
-        {
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'status' => 1], $remember)) {
             $json['status'] = true;
             $json['message'] = "Success";
-        }
-        else
-        {
+        } else {
             $json['status'] = false;
             $json['message'] = "Please Enter Valid email and password";
         }
 
         return response()->json($json);
+    }
+
+    public function forgot_password_form()
+    {
+        return view('frontend.auth.forgot_pass');
+    }
+
+    public function forgot_password(Request $request)
+    {
+        $user_email = trim($request->email);
+        $user = User::where('email', $user_email)->first();
+        if (!empty($user)) {
+            // Generate OTP and send email
+            $user->otp = str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
+            $user->otp_expire_at = now()->addMinutes(10);
+            $user->save();
+
+            Mail::to($user->email)->send(new ResetPasswordMail($user));
+
+            $toastr = app(Toastr::class);
+            $toastr->success('Success', 'Email Sent Successful');
+
+            // Redirect to the reset password form with user email
+            return view('frontend.auth.otp_form', ['email' => $user_email]);
+        } else {
+            $toastr = app(Toastr::class);
+            $toastr->error('Error', 'Please Enter Valid Email');
+            return redirect()->back();
+        }
+    }
+
+    public function submit_otp(Request $request)
+    {
+        $user_email = trim($request->email);
+        $user_otp = trim($request->otp);
+        $current_time = now();
+        $user = User::where('email',$user_email)->where('otp',$user_otp)->where('otp_expire_at','>=',$current_time)->first();
+        if(!empty($user))
+        {
+            $toastr = app(Toastr::class);
+            $toastr->success('Success', 'Otp Confirm Successful');
+
+            $encryptedData = encrypt(['email' => $user->email, 'otp' => $user_otp]);
+            return view('frontend.auth.reset_password', ['token' => $encryptedData]);
+        }
+        else
+        {
+            $expire_user = User::where('email',$user_email)->first();
+            if(!empty($expire_user))
+            {
+                $expire_time = $expire_user->otp_expire_at;
+                if(now() > $expire_time)
+                {
+                    $toastr = app(Toastr::class);
+                    $toastr->error('Error', 'Otp has been expired');
+                    return redirect()->back();
+                }
+                else
+                {
+                    $toastr = app(Toastr::class);
+                    $toastr->error('Error', 'Please Enter Valid Otp');
+                    return view('frontend.auth.otp_form', ['email' => $user_email]);
+                }
+            }
+           
+        }
+    }
+
+
+    public function reset_password(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'token' => 'required',
+            'password' => 'required|confirmed|min:8',
+        ]);
+
+        $decryptedData = decrypt($request->token);
+        $userEmail = $decryptedData['email'];
+        $otp = $decryptedData['otp'];
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $user_email = trim($userEmail);
+        $user = User::where('email', $user_email)->first();
+
+        if ($user && $user->otp === $otp && $user->otp_expire_at > now()) {
+            // Reset password
+            $user->password = bcrypt($request->password);
+            $user->save();
+
+            // Clear OTP
+            $user->otp = null;
+            $user->otp_expire_at = null;
+            $user->save();
+
+            $toastr = app(Toastr::class);
+            $toastr->success('Success', 'Password Reset Successful');
+            return redirect('/');
+        } else {
+            $toastr = app(Toastr::class);
+            $toastr->error('Error', 'Invalid OTP or OTP expired');
+            return redirect()->back();
+        }
     }
 
     public function auth_logout()

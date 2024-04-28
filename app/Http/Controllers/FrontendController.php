@@ -36,7 +36,7 @@ class FrontendController extends Controller
         }
         else if(!empty($getCategory) && !empty($getSubCategory))
         {
-            $getProduct = Product::where('status',1)->where('sub_category_id',$getSubCategory->id)->paginate(2);
+            $getProduct = Product::where('status',1)->where('sub_category_id',$getSubCategory->id)->paginate(10);
             $page = 0;
             if(!empty($getProduct->nextPageUrl()))
             {
@@ -54,7 +54,7 @@ class FrontendController extends Controller
         }
         else if(!empty($getCategory))
         {
-            $getProduct = Product::where('status',1)->where('category_id',$getCategory->id)->paginate(2);
+            $getProduct = Product::where('status',1)->where('category_id',$getCategory->id)->paginate(10);
             $page = 0;
             if(!empty($getProduct->nextPageUrl()))
             {
@@ -134,6 +134,24 @@ class FrontendController extends Controller
 
 
         return response()->json($suggestions);
+    }
+
+    public function search(Request $request)
+    {
+        $getProduct = Product::where('title', 'LIKE', "%{$request->q}%")->where('status',1)->where('category_id','!=',null)->where('sub_category_id','!=',null)->paginate(10);
+        $page = 0;
+            if(!empty($getProduct->nextPageUrl()))
+            {
+                $parse_url = parse_url($getProduct->nextPageUrl());
+                if(!empty($parse_url['query']))
+                {
+                    parse_str($parse_url['query'], $get_array);
+                    $page = !empty($get_array['page']) ? $get_array['page'] : 0;
+                }
+            }
+        $getColor = Color::where('status',1)->orderBy('id')->get();
+        $getBrand = Brand::where('status',1)->orderBy('id')->get();
+        return view('frontend.product.search_product',compact('getProduct','getColor','getBrand','page'));
     }
 
 }
